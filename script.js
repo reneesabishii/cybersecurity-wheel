@@ -1,4 +1,6 @@
 
+// Wheel of Fortune — fixed & robust
+
 const VOWELS = new Set(["A","E","I","O","U"]);
 const WHEEL_SLICES = [
   { label:"50", value:50, color:"#1d4ed8"},
@@ -15,11 +17,12 @@ const WHEEL_SLICES = [
   { label:"1000", value:1000, color:"#16a34a"}
 ];
 
-let teams=[
-  {name:()=>document.getElementById('team1Name').value,scoreEl:()=>document.getElementById('team1Score')},
-  {name:()=>document.getElementById('team2Name').value,scoreEl:()=>document.getElementById('team2Score')},
-  {name:()=>document.getElementById('team3Name').value,scoreEl:()=>document.getElementById('team3Score')}
+let teams = [
+  {name:()=>document.getElementById('team1Name').value, scoreEl:()=>document.getElementById('team1Score')},
+  {name:()=>document.getElementById('team2Name').value, scoreEl:()=>document.getElementById('team2Score')},
+  {name:()=>document.getElementById('team3Name').value, scoreEl:()=>document.getElementById('team3Score')}
 ];
+
 let lastSliceIndex = null; // remember what we landed on last
 let turn=0,
     currentWord='',
@@ -30,76 +33,106 @@ let turn=0,
     spinning=false,
     dataSets=[];
 
-// Load default vocab
+function setMessage(msg){
+  const el = document.getElementById('messages');
+  if (el) el.textContent = msg;
+}
+
+// Load default vocab (works well on iPhone/GitHub Pages)
 async function loadDefaultVocab(){
+  const fallback = [{
+    category:'Cybersecurity (Fallback)',
+    words:[
+      {term:'CAESAR CIPHER', hint:'A substitution cipher that shifts letters by a fixed number'},
+      {term:'CRYPTOGRAPHY', hint:'Secure communication techniques'},
+      {term:'DIGITAL CERTIFICATE', hint:'Proves ownership of a public key'},
+      {term:'OPERATING SYSTEM', hint:'Manages device hardware/software'},
+      {term:'FILE ENCRYPTION AND COMPRESSION', hint:'Secure + reduce file size'},
+      {term:'PATCHES', hint:'Updates fixing vulnerabilities or bugs'},
+      {term:'UPDATE', hint:'Install the latest version of software'},
+      {term:'COMPUTER VIRUS', hint:'Malicious program that can replicate and spread'},
+      {term:'POPUP BLOCKER', hint:'Prevents unwanted pop-up windows'}
+    ]
+  }];
+
   try{
-    const res=await fetch('vocab.json');
-    if(!res.ok) throw new Error('no default');
-    const json=await res.json();
-    dataSets = Array.isArray(json) ? json : [json];
-  }
-  catch(e){
-    dataSets=[{
-      category:'Cybersecurity',
-      words:[
-        {term:'CAESAR CIPHER', hint:'A substitution cipher that shifts letters by a fixed number'}
-      ]
-    }];
+    const res = await fetch('./vocab.json?cache=' + Date.now());
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    const json = await res.json();
+    const parsed = Array.isArray(json) ? json : [json];
+
+    // Minimal schema check
+    const shapeOK = parsed.every(s => s && typeof s.category === 'string' && Array.isArray(s.words));
+    const wordsOK = shapeOK && parsed.every(s => s.words.every(w => w && typeof w.term === 'string'));
+    if(!shapeOK || !wordsOK){
+      console.error('Invalid vocab.json schema:', json);
+      setMessage('Using fallback (invalid vocab.json schema).');
+      dataSets = fallback;
+    } else {
+      dataSets = parsed;
+    }
+  }catch(e){
+    console.error('Failed to load vocab.json:', e);
+    setMessage('Using fallback (could not load vocab.json).');
+    dataSets = fallback;
   }
 }
 
-function sanitizeWord(w){ return w.toUpperCase(); }
+function sanitizeWord(w){ return (w || '').toUpperCase(); }
 
 function pickRandom(){
-  const set=dataSets[Math.floor(Math.random()*dataSets.length)];
-  const item=set.words[Math.floor(Math.random()*set.words.length)];
+  if (!dataSets.length){
+    setMessage('No vocabulary loaded.');
+    return;
+  }
+  const set  = dataSets[Math.floor(Math.random()*dataSets.length)];
+  const item = set.words[Math.floor(Math.random()*set.words.length)];
 
-  currentCategory=set.category || 'General';
-  currentHint=item.hint || '';
-  currentWord=sanitizeWord(item.term);
+  currentCategory = set.category || 'General';
+  currentHint = item.hint || '';
+  currentWord = sanitizeWord(item.term);
 
-  revealed=currentWord.split('').map(ch=>ch===' '?' ':'_');
+  revealed = currentWord.split('').map(ch => ch === ' ' ? ' ' : '_');
   drawPuzzle();
 }
 
 function drawPuzzle(){
-  const p=document.getElementById('puzzle');
+  const p = document.getElementById('puzzle');
+  if(!p) return;
   p.innerHTML='';
 
   for(const ch of revealed){
-    const d=document.createElement('div');
-
-    if(ch===' '){
-      d.className='tile space';
-    } else if(ch==='_'){
-      d.className='tile';
+    const d = document.createElement('div');
+    if(ch === ' '){
+      d.className = 'tile space';
+    } else if(ch === '_'){
+      d.className = 'tile';
     } else {
-      d.className='tile revealed';
-      d.textContent=ch;
+      d.className = 'tile revealed';
+      d.textContent = ch;
     }
     p.appendChild(d);
   }
 
-  document.getElementById('categoryText').textContent=currentCategory;
-}
-
-function setMessage(msg){
-  document.getElementById('messages').textContent=msg;
+  const cat = document.getElementById('categoryText');
+  if (cat) cat.textContent = currentCategory;
 }
 
 function nextTurn(){
   turn = (turn + 1) % teams.length;
-  document.getElementById('turnName').textContent = teams[turn].name();
+  const el = document.getElementById('turnName');
+  if (el) el.textContent = teams[turn].name();
 }
 
 function addScore(points){
   const el = teams[turn].scoreEl();
-  const current = parseInt(el().textContent,10);
-  el().textContent = String(current + points);
+  const current = parseInt(el.textContent, 10) || 0;
+  el.textContent = String(current + points);
 }
 
 function buildKeyboard(){
-  const kb=document.getElementById('keyboard');
+  const kb = document.getElementById('keyboard');
+  if(!kb) return;
   kb.innerHTML='';
   const letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
@@ -121,7 +154,7 @@ function enableKeys(vowels){
 }
 
 function disableAllKeys(){
-  document.querySelectorAll('.key').forEach(b=>b.disabled=true);
+  document.querySelectorAll('.key').forEach(b=> b.disabled = true);
 }
 
 function revealLetter(ch){
@@ -136,10 +169,7 @@ function revealLetter(ch){
   return count;
 }
 
-function isSolved(){
-  return revealed.every(ch=>ch!=='_');
-}
-
+function isSolved(){ return revealed.every(ch=>ch !== '_'); }
 
 function drawWheel(angle = wheelAngle){
   const canvas = document.getElementById('wheel');
@@ -185,7 +215,7 @@ function drawWheel(angle = wheelAngle){
       ctx.stroke();
       ctx.restore();
 
-      // optional: inner rim highlight to make it pop a bit more
+      // inner rim highlight
       ctx.save();
       ctx.lineWidth = 6;
       ctx.strokeStyle = 'rgba(255,255,255,0.35)';
@@ -211,8 +241,6 @@ function drawWheel(angle = wheelAngle){
   ctx.fillStyle = '#ef4444';
   ctx.fill();
 }
-``
-
 
 function spin(vowels){
   if(spinning) return;
@@ -247,27 +275,25 @@ function spin(vowels){
   requestAnimationFrame(animate);
 }
 
-
 let currentSpinValue = 0;
 
 function handleSpinResult(result, vowels){
-  // 1) Remember the landed slice index for highlighting
-  // We need to recompute idx the same way spin() did. A simple approach:
+  // Remember the landed slice
   const sliceAngle = 2 * Math.PI / WHEEL_SLICES.length;
   const idx = Math.floor(((2 * Math.PI - (wheelAngle % (2 * Math.PI))) / sliceAngle)) % WHEEL_SLICES.length;
   lastSliceIndex = idx;
 
-  // 2) Update the readout
+  // Update visible readout (if present)
   const landedEl = document.getElementById('landedResult');
   if (landedEl){
     const label = WHEEL_SLICES[idx].label;
     landedEl.innerHTML = `Landed on: <span class="label">${label}</span>`;
   }
 
-  // 3) Redraw to show the highlight immediately
+  // Redraw with highlight
   drawWheel();
 
-  // 4) Game logic as before
+  // Game logic
   if(result.bankrupt){
     teams[turn].scoreEl().textContent = '0';
     setMessage(`${teams[turn].name()}: Bankrupt! Points reset.`);
@@ -286,12 +312,6 @@ function handleSpinResult(result, vowels){
   currentSpinValue = result.value;
 }
 
-
-  setMessage(`${teams[turn].name()}: Choose ${vowels?'a vowel':'a consonant'} for ${result.value} points each.`);
-  enableKeys(vowels);
-  currentSpinValue=result.value;
-}
-
 function pickLetter(ch){
   disableAllKeys();
   const count=revealLetter(ch);
@@ -304,7 +324,7 @@ function pickLetter(ch){
     if(isSolved()){
       setMessage(`🎉 ${teams[turn].name()} solved the word: ${currentWord}!`);
     } else {
-      enableKeys(VOWELS.has(ch));
+      enableKeys(VOWELS.has(ch)); // same team continues
     }
   }
   else{
@@ -315,7 +335,6 @@ function pickLetter(ch){
 
 function solvePrompt(){
   const guess=prompt('Enter your solution:') || '';
-
   if(sanitizeWord(guess.trim())===currentWord){
     revealed = currentWord.split('');
     drawPuzzle();
@@ -327,13 +346,14 @@ function solvePrompt(){
   }
 }
 
-window.addEventListener('DOMContentLoaded',async()=>{
+window.addEventListener('DOMContentLoaded', async ()=>{
   await loadDefaultVocab();
   buildKeyboard();
   drawWheel();
   pickRandom();
 
-  document.getElementById('turnName').textContent = teams[turn].name();
+  const tn = document.getElementById('turnName');
+  if (tn) tn.textContent = teams[turn].name();
 
   document.getElementById('spinConsonant').addEventListener('click',()=>spin(false));
   document.getElementById('spinVowel').addEventListener('click',()=>spin(true));
@@ -343,6 +363,12 @@ window.addEventListener('DOMContentLoaded',async()=>{
     pickRandom();
     setMessage('New word loaded.');
     disableAllKeys();
+
+    // clear indicator + highlight
+    lastSliceIndex = null;
+    const landedEl = document.getElementById('landedResult');
+    if (landedEl) landedEl.textContent = '';
+    drawWheel();
   });
 
   const hintEl=document.getElementById('hint');
@@ -356,18 +382,17 @@ window.addEventListener('DOMContentLoaded',async()=>{
     hintEl.hidden=!hintEl.hidden;
   });
 
+  // Optional: load custom JSON in class
   document.getElementById('vocabFile').addEventListener('change',async e=>{
     const file=e.target.files[0];
     if(!file) return;
-
     try{
       const text=await file.text();
       const json=JSON.parse(text);
       dataSets = Array.isArray(json) ? json : [json];
       setMessage('Vocabulary loaded.');
       pickRandom();
-    }
-    catch(err){
+    }catch(err){
       alert('Could not read JSON. Check the format.');
     }
   });
