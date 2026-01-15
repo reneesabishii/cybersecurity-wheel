@@ -1,1 +1,49 @@
-body{font-family:sans-serif;color:white;background:#0f172a;padding:1rem;} .tile{background:#1f2937;padding:10px;margin:3px;border-radius:4px;display:inline-block;}
+
+/* 1) Center the whole page content within a max width */
+main{
+  width: min(100%, 1000px);     /* center block width */
+  margin-inline: auto;          /* centers the grid container */
+  justify-items: center;        /* centers items within each grid cell */
+}
+
+/* 2) Center the wheel column content */
+.wheel-section{
+  display: flex;
+  flex-direction: column;
+  align-items: center;          /* centers the canvas + buttons */
+}
+
+/* 3) Center the puzzle area and its header text */
+.puzzle-section{
+  text-align: center;           /* centers category, hint, buttons text */
+}
+
+/* 4) Center the on-screen keyboard as a whole */
+.keyboard{
+  display: grid;
+  grid-template-columns: repeat(13, 1fr);
+  gap: .35rem;
+  justify-content: center;      /* centers the whole grid block */
+}
+
+/* 5) Center the letters-section container */
+.letters-section{
+  display: flex;
+  justify-content: center;      /* centers keyboard block in its card */
+}
+
+/* 6) Score section centered */
+.score-section{
+  text-align: center;
+}
+.teams{
+  justify-content: center;      /* centers team cards */
+}
+
+/* 7) Make mobile even cleaner */
+@media (max-width: 980px){
+  main{
+    grid-template-columns: 1fr; /* single column */
+    justify-items: center;      /* center each section */
+  }
+}
