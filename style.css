@@ -13,6 +13,19 @@ main{
   align-items: center;          /* centers the canvas + buttons */
 }
 
+.landed-result{
+  margin-top: .5rem;
+  font-weight: 800;
+  color: #f8fafc;           /* white */
+  text-shadow: 0 1px 2px rgba(0,0,0,.4);
+}
+.landed-result .label{
+  display:inline-block;
+  padding: .15rem .45rem;
+  border-radius: .4rem;
+  background: rgba(255,255,255,.08);
+}
+
 /* 3) Center the puzzle area and its header text */
 .puzzle-section{
   text-align: center;           /* centers category, hint, buttons text */
