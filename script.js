@@ -20,7 +20,7 @@ let teams=[
   {name:()=>document.getElementById('team2Name').value,scoreEl:()=>document.getElementById('team2Score')},
   {name:()=>document.getElementById('team3Name').value,scoreEl:()=>document.getElementById('team3Score')}
 ];
-
+let lastSliceIndex = null; // remember what we landed on last
 let turn=0,
     currentWord='',
     currentHint='',
@@ -140,43 +140,79 @@ function isSolved(){
   return revealed.every(ch=>ch!=='_');
 }
 
-function drawWheel(angle=wheelAngle){
-  const ctx=document.getElementById('wheel').getContext('2d');
-  const radius=200, cx=210, cy=210;
+
+function drawWheel(angle = wheelAngle){
+  const canvas = document.getElementById('wheel');
+  if (!canvas) { console.warn('No #wheel canvas found.'); return; }
+  const ctx = canvas.getContext('2d');
+  const radius = 200, cx = 210, cy = 210;
 
   ctx.clearRect(0,0,420,420);
 
-  const sliceAngle=2*Math.PI/WHEEL_SLICES.length;
+  const sliceAngle = 2 * Math.PI / WHEEL_SLICES.length;
 
-  for(let i=0;i<WHEEL_SLICES.length;i++){
-    const start = angle + i*sliceAngle;
+  for (let i = 0; i < WHEEL_SLICES.length; i++){
+    const start = angle + i * sliceAngle;
     const end   = start + sliceAngle;
 
+    // fill slice
     ctx.beginPath();
-    ctx.moveTo(cx,cy);
-    ctx.arc(cx,cy,radius,start,end);
+    ctx.moveTo(cx, cy);
+    ctx.arc(cx, cy, radius, start, end);
     ctx.closePath();
-    ctx.fillStyle=WHEEL_SLICES[i].color;
+    ctx.fillStyle = WHEEL_SLICES[i].color;
     ctx.fill();
 
+    // text label
     ctx.save();
-    ctx.translate(cx,cy);
-    ctx.rotate(start + sliceAngle/2);
-    ctx.fillStyle='#fff';
-    ctx.font='bold 16px sans-serif';
-    ctx.textAlign='right';
-    ctx.fillText(WHEEL_SLICES[i].label, radius-10, 6);
+    ctx.translate(cx, cy);
+    ctx.rotate(start + sliceAngle / 2);
+    ctx.fillStyle = '#fff';
+    ctx.font = 'bold 16px sans-serif';
+    ctx.textAlign = 'right';
+    ctx.fillText(WHEEL_SLICES[i].label, radius - 10, 6);
     ctx.restore();
+
+    // highlight stroke if this is the selected slice
+    if (lastSliceIndex === i){
+      ctx.save();
+      ctx.lineWidth = 4;
+      ctx.strokeStyle = 'rgba(255,255,255,0.9)';
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.arc(cx, cy, radius, start, end);
+      ctx.closePath();
+      ctx.stroke();
+      ctx.restore();
+
+      // optional: inner rim highlight to make it pop a bit more
+      ctx.save();
+      ctx.lineWidth = 6;
+      ctx.strokeStyle = 'rgba(255,255,255,0.35)';
+      ctx.beginPath();
+      ctx.arc(cx, cy, radius - 8, start, end);
+      ctx.stroke();
+      ctx.restore();
+    }
   }
 
+  // pointer (static triangle)
   ctx.beginPath();
-  ctx.moveTo(cx,cy-radius-10);
-  ctx.lineTo(cx-12,cy-radius-35);
-  ctx.lineTo(cx+12,cy-radius-35);
+  ctx.moveTo(cx, cy - radius - 10);
+  ctx.lineTo(cx - 12, cy - radius - 35);
+  ctx.lineTo(cx + 12, cy - radius - 35);
   ctx.closePath();
-  ctx.fillStyle='#fff';
+  ctx.fillStyle = '#fff';
+  ctx.fill();
+
+  // tiny pointer tip accent
+  ctx.beginPath();
+  ctx.arc(cx, cy - radius - 25, 3, 0, Math.PI * 2);
+  ctx.fillStyle = '#ef4444';
   ctx.fill();
 }
+``
+
 
 function spin(vowels){
   if(spinning) return;
@@ -211,11 +247,29 @@ function spin(vowels){
   requestAnimationFrame(animate);
 }
 
-let currentSpinValue=0;
+
+let currentSpinValue = 0;
 
 function handleSpinResult(result, vowels){
+  // 1) Remember the landed slice index for highlighting
+  // We need to recompute idx the same way spin() did. A simple approach:
+  const sliceAngle = 2 * Math.PI / WHEEL_SLICES.length;
+  const idx = Math.floor(((2 * Math.PI - (wheelAngle % (2 * Math.PI))) / sliceAngle)) % WHEEL_SLICES.length;
+  lastSliceIndex = idx;
+
+  // 2) Update the readout
+  const landedEl = document.getElementById('landedResult');
+  if (landedEl){
+    const label = WHEEL_SLICES[idx].label;
+    landedEl.innerHTML = `Landed on: <span class="label">${label}</span>`;
+  }
+
+  // 3) Redraw to show the highlight immediately
+  drawWheel();
+
+  // 4) Game logic as before
   if(result.bankrupt){
-    teams[turn].scoreEl()().textContent='0';
+    teams[turn].scoreEl().textContent = '0';
     setMessage(`${teams[turn].name()}: Bankrupt! Points reset.`);
     nextTurn();
     return;
@@ -226,6 +280,12 @@ function handleSpinResult(result, vowels){
     nextTurn();
     return;
   }
+
+  setMessage(`${teams[turn].name()}: Choose ${vowels ? 'a vowel' : 'a consonant'} for ${result.value} points each.`);
+  enableKeys(vowels);
+  currentSpinValue = result.value;
+}
+
 
   setMessage(`${teams[turn].name()}: Choose ${vowels?'a vowel':'a consonant'} for ${result.value} points each.`);
   enableKeys(vowels);
