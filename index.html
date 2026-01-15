@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vocabulary Wheel of Fortune</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Vocabulary Wheel of Fortune</h1>
+    <p>Guess the cybersecurity vocabulary word. Spin the wheel to choose a consonant or vowel and earn points!</p>
+  </header>
+
+  <main>
+    <section class="puzzle-section">
+      <div id="category">Category: <span id="categoryText">(loading...)</span></div>
+      <div id="puzzle" aria-label="hidden word"></div>
+      <div id="hint" class="hint" hidden></div>
+      <div class="controls">
+        <button id="newWordBtn">New Word</button>
+        <button id="toggleHintBtn">Hint</button>
+      </div>
+    </section>
+
+    <section class="wheel-section">
+      <canvas id="wheel" width="420" height="420"></canvas>
+      <div class="spin-controls">
+        <button id="spinConsonant">Spin (Consonant)</button>
+        <button id="spinVowel">Spin (Vowel)</button>
+        <button id="solveBtn">Solve!</button>
+      </div>
+    </section>
+
+    <section class="letters-section">
+      <div class="keyboard" id="keyboard"></div>
+    </section>
+
+    <section class="score-section">
+      <div class="teams">
+        <div class="team">
+          <label>Team 1: <input id="team1Name" value="Team 1"></label>
+          <div>Points: <span id="team1Score">0</span></div>
+        </div>
+        <div class="team">
+          <label>Team 2: <input id="team2Name" value="Team 2"></label>
+          <div>Points: <span id="team2Score">0</span></div>
+        </div>
+        <div class="team">
+          <label>Team 3: <input id="team3Name" value="Team 3"></label>
+          <div>Points: <span id="team3Score">0</span></div>
+        </div>
+      </div>
+      <div class="turn">Turn: <span id="turnName">Team 1</span></div>
+      <div class="messages" id="messages"></div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
