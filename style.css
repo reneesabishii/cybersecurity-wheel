@@ -46,6 +46,7 @@ header {
   grid-row: 2;
   display: flex;
   justify-content: center;
+  align-self: start;   /* ← prevents stretching */
 }
 
 /* Score directly under keyboard */
