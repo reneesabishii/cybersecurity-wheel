@@ -39,7 +39,9 @@ header {
   text-align: center;
   align-self: start;   /* ← prevents stretching */
 }
-
+.puzzle-section > * {
+  margin-bottom: .25rem;
+}
 /* Keyboard directly under puzzle */
 .letters-section {
   grid-column: 2;
@@ -62,8 +64,8 @@ header {
   background: white !important;
   color: black !important;
   border: 2px solid #ccc;
-  padding: 10px;
-  margin: 3px;
+  padding: 4px 6px;
+  margin: 2px;
   border-radius: 4px;
   display: inline-block;
   font-weight: bold;
