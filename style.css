@@ -14,8 +14,10 @@ header {
 }
 .wheel-section {
   grid-column: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: left; /* center wheel inside its column */
 }
-
 /* Force everything else on the right column */
 .puzzle-section,
 .letters-section,
@@ -45,6 +47,7 @@ header {
 
 /* 4) Center the on-screen keyboard as a whole */
 .keyboard{
+  grid-column: 2;
   display: grid;
   grid-template-columns: repeat(13, 1fr);
   gap: .35rem;
