@@ -3,7 +3,7 @@ body{font-family:sans-serif;color:white;background:#0f172a;padding:1rem;} .tile{
 main{
   width: min(100%, 1000px);     /* center block width */
   margin-inline: auto;          /* centers the grid container */
-  justify-items: center;        /* centers items within each grid cell */
+  /**justify-items: center;        /* centers items within each grid cell */
 }
 
 header {
