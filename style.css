@@ -1,79 +1,50 @@
-body{font-family:sans-serif;color:white;background:#0f172a;padding:1rem;} .tile{background:#1f2937;padding:10px;margin:3px;border-radius:4px;display:inline-block;}
-/* 1) Center the whole page content within a max width */
-main{
+body {
+  font-family: sans-serif;
+  color: white;
+  background: #0f172a;
+  padding: 1rem;
+}
+
+/* --- MAIN LAYOUT: WHEEL LEFT, EVERYTHING ELSE RIGHT --- */
+main {
   display: grid;
-  grid-template-columns: 420px 1fr; /* wheel column | everything else */
+  grid-template-columns: 420px 1fr; /* left = wheel, right = everything else */
   gap: 2rem;
   width: min(100%, 1200px);
   margin-inline: auto;
   align-items: start;
 }
 
-header {
-  text-align: center;
-}
+/* Force wheel into left column */
 .wheel-section {
   grid-column: 1;
+  grid-row: 1;
   display: flex;
   flex-direction: column;
-  align-items: left; /* center wheel inside its column */
+  align-items: center;
 }
-/* Force everything else on the right column */
-.puzzle-section,
-.letters-section,
+
+/* Force puzzle, keyboard, score into right column */
+.puzzle-section {
+  grid-column: 2;
+  grid-row: 1;
+  text-align: center;
+}
+
+.letters-section {
+  grid-column: 2;
+  grid-row: 2;
+  display: flex;
+  justify-content: center;
+}
+
 .score-section {
   grid-column: 2;
-}
-/* 2) Center the wheel column content */
-
-
-.landed-result{
-  margin-top: .5rem;
-  font-weight: 800;
-  color: #f8fafc;           /* white */
-  text-shadow: 0 1px 2px rgba(0,0,0,.4);
-}
-.landed-result .label{
-  display:inline-block;
-  padding: .15rem .45rem;
-  border-radius: .4rem;
-  background: rgba(255,255,255,.08);
+  grid-row: 3;
+  text-align: center;
 }
 
-/* 3) Center the puzzle area and its header text */
-.puzzle-section{
-  text-align: center;           /* centers category, hint, buttons text */
-}
-
-/* 4) Center the on-screen keyboard as a whole */
-.keyboard{
-  grid-column: 2;
-  display: grid;
-  grid-template-columns: repeat(13, 1fr);
-  gap: .35rem;
-  justify-content: right;      /* centers the whole grid block */
-}
-
-/* 5) Center the letters-section container */
-.letters-section{
-  grid-column: 2;
-  display: flex;
-  justify-content: right;      /* centers keyboard block in its card */
-}
-
-/* 6) Score section centered */
-.score-section{
-  text-align: right;
-}
-.teams{
-  justify-content: right;      /* centers team cards */
-}
-
-.key.used {
-  visibility: hidden;      /* or opacity: 0; pointer-events: none; */
-}
-
-/* Make puzzle tiles white with dark text */
+/* --- PUZZLE TILES: WHITE SQUARES --- */
 .tile {
   background: white !important;
   color: black !important;
@@ -94,9 +65,30 @@ header {
   background: transparent !important;
   border: none;
 }
-/* 7) Make mobile even cleaner */
+
+/* --- KEYBOARD --- */
+.keyboard {
+  display: grid;
+  grid-template-columns: repeat(13, 1fr);
+  gap: .35rem;
+  justify-content: center;
+}
+
+.key.used {
+  visibility: hidden;
+}
+
+/* --- MOBILE LAYOUT --- */
 @media (max-width: 900px) {
   main {
     grid-template-columns: 1fr;
+  }
+
+  .wheel-section,
+  .puzzle-section,
+  .letters-section,
+  .score-section {
+    grid-column: 1;
+    grid-row: auto;
   }
 }
