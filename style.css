@@ -61,6 +61,27 @@ header {
   visibility: hidden;      /* or opacity: 0; pointer-events: none; */
 }
 
+/* Make puzzle tiles white with dark text */
+.tile {
+  background: white !important;
+  color: black !important;
+  border: 2px solid #ccc;
+  padding: 10px;
+  margin: 3px;
+  border-radius: 4px;
+  display: inline-block;
+  font-weight: bold;
+}
+
+.tile.revealed {
+  background: white !important;
+  color: black !important;
+}
+
+.tile.space {
+  background: transparent !important;
+  border: none;
+}
 /* 7) Make mobile even cleaner */
 @media (max-width: 980px){
   main{
