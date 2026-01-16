@@ -32,16 +32,11 @@ header {
   align-items: center;   /* center horizontally */
   justify-content: start;
 }
-
-
-/* --- RIGHT COLUMN STACK --- */
-
-/* Puzzle at top right */
 .puzzle-section {
   grid-column: 2;
   grid-row: 1;
   text-align: center;
-  align-self: start;   /* ← prevents stretching */
+  align-self: start; 
 }
 
 /* Keyboard directly under puzzle */
@@ -66,7 +61,7 @@ header {
   background: white !important;
   color: black !important;
   border: 2px solid #ccc;
-  padding: 10px 10px;   /* smaller tile size */
+  padding: 12px 12px;   /* smaller tile size */
   margin: 3px;          /* tighter spacing */
   border-radius: 4px;
   display: inline-block;
