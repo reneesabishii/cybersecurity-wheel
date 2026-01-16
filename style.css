@@ -14,7 +14,7 @@ header {
 .wheel-section{
   display: flex;
   flex-direction: column;
-  align-items: center;          /* centers the canvas + buttons */
+  align-items: left;          /* centers the canvas + buttons */
 }
 
 .landed-result{
@@ -40,21 +40,21 @@ header {
   display: grid;
   grid-template-columns: repeat(13, 1fr);
   gap: .35rem;
-  justify-content: center;      /* centers the whole grid block */
+  justify-content: right;      /* centers the whole grid block */
 }
 
 /* 5) Center the letters-section container */
 .letters-section{
   display: flex;
-  justify-content: center;      /* centers keyboard block in its card */
+  justify-content: right;      /* centers keyboard block in its card */
 }
 
 /* 6) Score section centered */
 .score-section{
-  text-align: center;
+  text-align: right;
 }
 .teams{
-  justify-content: center;      /* centers team cards */
+  justify-content: right;      /* centers team cards */
 }
 
 .key.used {
