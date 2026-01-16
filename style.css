@@ -65,7 +65,7 @@ header {
   background: white !important;
   color: black !important;
   border: 2px solid #ccc;
-  padding: 8px 10px;   /* smaller tile size */
+  padding: 10px 10px;   /* smaller tile size */
   margin: 3px;          /* tighter spacing */
   border-radius: 4px;
   display: inline-block;
