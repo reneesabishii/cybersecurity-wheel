@@ -28,7 +28,7 @@ header {
   display: flex;
   flex-direction: column;
   align-items: right;
-  transform: translateX(-25px);
+  transform: translateX(-100px);
 }
 
 /* --- RIGHT COLUMN STACK --- */
@@ -86,7 +86,7 @@ header {
 
 .keyboard {
   display: grid;
-  font-size: 1.35rem;
+  font-size: 1.1rem;
   grid-template-columns: repeat(13, 1fr);
   gap: .6rem;              /* more space between keys */
   justify-content: center;
@@ -94,7 +94,7 @@ header {
 
 .key {
   padding: 18px 14px;      /* larger key size */
-  font-size: 1.35rem;      /* bigger letters */
+  font-size: 1.1rem;      /* bigger letters */
   border-radius: 8px;      /* smoother, chunkier buttons */
   font-weight: bold;
   background: #e2e8f0;     /* optional: softer gray background */
