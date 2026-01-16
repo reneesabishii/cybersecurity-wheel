@@ -56,6 +56,7 @@ header {
 
 /* 5) Center the letters-section container */
 .letters-section{
+  grid-column: 2;
   display: flex;
   justify-content: right;      /* centers keyboard block in its card */
 }
