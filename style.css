@@ -64,12 +64,14 @@ header {
   background: white !important;
   color: black !important;
   border: 2px solid #ccc;
-  padding: 4px 6px;
-  margin: 2px;
+  padding: 4px 6px;   /* smaller */
+  margin: 2px;        /* smaller */
   border-radius: 4px;
   display: inline-block;
   font-weight: bold;
+  font-size: 1rem;    /* optional: reduce font size */
 }
+
 
 .tile.revealed {
   background: white !important;
