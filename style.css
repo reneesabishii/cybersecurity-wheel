@@ -68,18 +68,16 @@ header {
   font-weight: bold;
   font-size: 1.1rem;    /* slightly smaller text */
 }
-
-
-
-
 .tile.revealed {
   background: white !important;
   color: black !important;
 }
-
 .tile.space {
   background: transparent !important;
-  border: none;
+  border: 2px solid transparent; /* keeps size consistent */
+  padding: 10px 14px;            /* same padding as .tile */
+  margin: 3px;                   /* same margin */
+  border-radius: 4px;            /* same radius */
 }
 
 .keyboard {
@@ -89,7 +87,6 @@ header {
   gap: .6rem;              /* more space between keys */
   justify-content: center;
 }
-
 .key {
   padding: 10px 14px;      /* larger key size */
   font-size: 1.1rem;      /* bigger letters */
@@ -99,9 +96,6 @@ header {
   color: #1a1a1a;
   border: 2px solid #cbd5e1;
 }
-
-
-
 .key.used {
   visibility: hidden;
 }
