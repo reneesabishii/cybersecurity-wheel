@@ -79,9 +79,8 @@ header {
   border: none;
 }
 
-/* --- KEYBOARD --- */
 .keyboard {
-  grid-column: 2;
+  display: grid;   /* ← THIS is the missing piece */
   grid-template-columns: repeat(13, 1fr);
   gap: .35rem;
   justify-content: center;
