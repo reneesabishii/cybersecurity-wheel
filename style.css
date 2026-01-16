@@ -78,7 +78,6 @@ header {
 /* --- KEYBOARD --- */
 .keyboard {
   grid-column: 2;
-  grid-row: 2;
   grid-template-columns: repeat(13, 1fr);
   gap: .35rem;
   justify-content: center;
@@ -88,15 +87,3 @@ header {
   visibility: hidden;
 }
 
-/* --- MOBILE LAYOUT --- */
-@media (max-width: 900px) {
-  main {
-    grid-template-columns: 1fr;
-  }
-  
-  .puzzle-section,
-  .letters-section,
-  .score-section {
-    grid-column: 2;
-  }
-}
