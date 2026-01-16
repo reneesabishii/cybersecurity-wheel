@@ -93,12 +93,4 @@ header {
   main {
     grid-template-columns: 1fr;
   }
-
-  .wheel-section,
-  .puzzle-section,
-  .letters-section,
-  .score-section {
-    grid-column: 1;
-    grid-row: auto;
-  }
 }
