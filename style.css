@@ -39,9 +39,7 @@ header {
   text-align: center;
   align-self: start;   /* ← prevents stretching */
 }
-.puzzle-section > * {
-  margin-bottom: .25rem;
-}
+
 /* Keyboard directly under puzzle */
 .letters-section {
   grid-column: 2;
