@@ -6,6 +6,10 @@ main{
   justify-items: center;        /* centers items within each grid cell */
 }
 
+header {
+  text-align: center;
+}
+
 /* 2) Center the wheel column content */
 .wheel-section{
   display: flex;
