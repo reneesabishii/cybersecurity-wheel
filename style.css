@@ -61,23 +61,25 @@ header {
   background: white !important;
   color: black !important;
   border: 2px solid #ccc;
-  padding: 10px 14px;   /* smaller tile size */
-  margin: 3px;          /* tighter spacing */
+  padding: 10px 14px;
+  margin: 3px;
   border-radius: 4px;
   display: inline-block;
   font-weight: bold;
-  font-size: 1.1rem;    /* slightly smaller text */
+  font-size: 1.1rem;
 }
+
 .tile.revealed {
   background: white !important;
   color: black !important;
 }
+
 .tile.space {
   background: transparent !important;
-  border: 2px solid transparent; /* keeps size consistent */
-  padding: 10px 14px;            /* same padding as .tile */
-  margin: 3px;                   /* same margin */
-  border-radius: 4px;            /* same radius */
+  border: 2px solid transparent;
+  padding: 10px 14px;
+  margin: 3px;
+  border-radius: 4px;
 }
 
 .keyboard {
