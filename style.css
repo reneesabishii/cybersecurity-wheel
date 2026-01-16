@@ -13,7 +13,7 @@ main {
   grid-template-columns: 420px 1fr;
   grid-auto-rows: auto;   /* ← THIS fixes the huge gap */
   align-items: start;
-  gap: 1rem;
+  gap: .25rem;
 }
 
 
@@ -62,7 +62,7 @@ header {
   background: white !important;
   color: black !important;
   border: 3px solid #ccc;
-  padding: 16px 20px;   /* bigger tiles */
+  padding: 20px 20px;   /* bigger tiles */
   margin: 4px;          /* slightly bigger spacing */
   border-radius: 6px;
   display: inline-block;
