@@ -14,7 +14,7 @@ main {
   grid-auto-rows: auto;   /* ← THIS fixes the huge gap */
   align-items: start;
   gap: .25rem;
-  transform: translateX(50px);
+  transform: translateX(100px);
   margin-top: 20px;
 }
 
