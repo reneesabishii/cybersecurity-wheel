@@ -312,6 +312,18 @@ function handleSpinResult(result, vowels){
   currentSpinValue = result.value;
 }
 
+function markLetterUsed(ch) {
+  // Find the keyboard button that matches this letter and hide it
+  const btns = document.querySelectorAll('.key');
+  for (const b of btns) {
+    if (b.textContent === ch) {
+      b.classList.add('used');
+      b.disabled = true;    // keep disabled for safety
+      break;
+    }
+  }
+}
+
 function pickLetter(ch){
   disableAllKeys();
   const count=revealLetter(ch);
