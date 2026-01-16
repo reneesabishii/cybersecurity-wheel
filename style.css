@@ -61,12 +61,17 @@ header {
   background: white !important;
   color: black !important;
   border: 2px solid #ccc;
-  padding: 10px 14px;
+  padding: 0;                 /* no padding needed with fixed size */
   margin: 3px;
   border-radius: 4px;
-  display: inline-block;
+  display: inline-flex;       /* centers content */
+  justify-content: center;
+  align-items: center;
   font-weight: bold;
   font-size: 1.1rem;
+
+  width: 40px;                /* FIXED SIZE */
+  height: 50px;               /* FIXED SIZE */
 }
 
 .tile.revealed {
@@ -77,10 +82,10 @@ header {
 .tile.space {
   background: transparent !important;
   border: 2px solid transparent;
-  padding: 10px 14px;
-  margin: 3px;
-  border-radius: 4px;
+  width: 40px;
+  height: 50px;
 }
+
 
 .keyboard {
   display: grid;
