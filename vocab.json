@@ -8,7 +8,7 @@
       },
       {
         "term": "CRYPTOGRAPHY",
-        "hint": "The practice of secure communication techniques"
+        "hint": "The practice of secure communication techniques, converting readable information (plaintext) into an unreadable format (ciphertext) to prevent unauthorized access."
       },
       {
         "term": "DIGITAL CERTIFICATE",
