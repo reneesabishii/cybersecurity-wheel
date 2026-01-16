@@ -62,14 +62,15 @@ header {
 .tile {
   background: white !important;
   color: black !important;
-  border: 3px solid #ccc;
-  padding: 20px 20px;   /* bigger tiles */
-  margin: 4px;          /* slightly bigger spacing */
-  border-radius: 6px;
+  border: 2px solid #ccc;
+  padding: 10px 12px;   /* smaller tile size */
+  margin: 3px;          /* tighter spacing */
+  border-radius: 4px;
   display: inline-block;
   font-weight: bold;
-  font-size: 1.4rem;    /* larger letters */
+  font-size: 1.1rem;    /* slightly smaller text */
 }
+
 
 
 
