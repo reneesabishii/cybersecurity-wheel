@@ -93,7 +93,7 @@ header {
 }
 
 .key {
-  padding: 18px 14px;      /* larger key size */
+  padding: 10px 14px;      /* larger key size */
   font-size: 1.1rem;      /* bigger letters */
   border-radius: 8px;      /* smoother, chunkier buttons */
   font-weight: bold;
