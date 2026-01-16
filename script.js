@@ -130,21 +130,26 @@ function addScore(points){
   el.textContent = String(current + points);
 }
 
+
 function buildKeyboard(){
   const kb = document.getElementById('keyboard');
-  if(!kb) return;
-  kb.innerHTML='';
-  const letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  kb.innerHTML = '';
+  const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
-  for(const ch of letters){
-    const btn=document.createElement('button');
-    btn.className='key' + (VOWELS.has(ch) ? ' vowel' : '');
-    btn.textContent=ch;
-    btn.disabled=true;
-    btn.addEventListener('click',()=>pickLetter(ch));
+  for (const ch of letters){
+    const btn = document.createElement('button');
+    btn.className = 'key' + (VOWELS.has(ch) ? ' vowel' : '');
+    btn.textContent = ch;
+
+    // STEP 5: add the data attribute here 👇
+    btn.dataset.letter = ch;
+
+    btn.disabled = true;
+    btn.addEventListener('click', () => pickLetter(ch));
     kb.appendChild(btn);
   }
 }
+
 
 function enableKeys(vowels){
   document.querySelectorAll('.key').forEach(b=>{
@@ -326,6 +331,7 @@ function markLetterUsed(ch) {
 
 function pickLetter(ch){
   disableAllKeys();
+  markLetterUsed(ch);
   const count=revealLetter(ch);
 
   if(count>0){
@@ -371,17 +377,24 @@ window.addEventListener('DOMContentLoaded', async ()=>{
   document.getElementById('spinVowel').addEventListener('click',()=>spin(true));
   document.getElementById('solveBtn').addEventListener('click',solvePrompt);
 
-  document.getElementById('newWordBtn').addEventListener('click',()=>{
-    pickRandom();
-    setMessage('New word loaded.');
-    disableAllKeys();
 
-    // clear indicator + highlight
-    lastSliceIndex = null;
-    const landedEl = document.getElementById('landedResult');
-    if (landedEl) landedEl.textContent = '';
-    drawWheel();
-  });
+document.getElementById('newWordBtn').addEventListener('click', ()=>{
+  pickRandom();
+  setMessage('New word loaded.');
+
+  // Rebuild keyboard so all letters reappear
+  buildKeyboard();
+
+  // Keep letters disabled until the next spin
+  disableAllKeys();
+
+  // (Optional) clear the wheel highlight/readout if you’re using that feature
+  if (typeof lastSliceIndex !== 'undefined') lastSliceIndex = null;
+  const landedEl = document.getElementById('landedResult');
+  if (landedEl) landedEl.textContent = '';
+  if (typeof drawWheel === 'function') drawWheel();
+});
+
 
   const hintEl=document.getElementById('hint');
   document.getElementById('toggleHintBtn').addEventListener('click',()=>{
