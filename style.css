@@ -24,7 +24,7 @@ header {
 /* --- LEFT COLUMN: WHEEL --- */
 .wheel-section {
   grid-column: 1;
-  grid-row: 1;
+  grid-row: 1 / span 3;  
   display: flex;
   flex-direction: column;
   align-items: center;
