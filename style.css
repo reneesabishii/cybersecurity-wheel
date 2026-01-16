@@ -83,11 +83,19 @@ header {
 }
 
 .keyboard {
-  display: grid;   /* ← THIS is the missing piece */
+  display: grid;
   grid-template-columns: repeat(13, 1fr);
-  gap: .35rem;
+  gap: .5rem;              /* slightly larger spacing between keys */
   justify-content: center;
 }
+
+.key {
+  padding: 14px 10px;      /* bigger key size */
+  font-size: 1.2rem;       /* larger letters */
+  border-radius: 6px;      /* smoother edges */
+  font-weight: bold;
+}
+
 
 .key.used {
   visibility: hidden;
