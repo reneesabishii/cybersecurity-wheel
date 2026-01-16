@@ -1,3 +1,4 @@
+/* --- GLOBAL --- */
 body {
   font-family: sans-serif;
   color: white;
@@ -8,14 +9,18 @@ body {
 /* --- MAIN LAYOUT: WHEEL LEFT, EVERYTHING ELSE RIGHT --- */
 main {
   display: grid;
-  grid-template-columns: 420px 1fr; /* left = wheel, right = everything else */
+  grid-template-columns: 420px 1fr; /* left = wheel, right = puzzle/keyboard/score */
   gap: 2rem;
   width: min(100%, 1200px);
   margin-inline: auto;
   align-items: start;
 }
 
-/* Force wheel into left column */
+header {
+  text-align: center;
+}
+
+/* --- LEFT COLUMN: WHEEL --- */
 .wheel-section {
   grid-column: 1;
   grid-row: 1;
@@ -24,13 +29,16 @@ main {
   align-items: center;
 }
 
-/* Force puzzle, keyboard, score into right column */
+/* --- RIGHT COLUMN STACK --- */
+
+/* Puzzle at top right */
 .puzzle-section {
   grid-column: 2;
   grid-row: 1;
   text-align: center;
 }
 
+/* Keyboard directly under puzzle */
 .letters-section {
   grid-column: 2;
   grid-row: 2;
@@ -38,13 +46,14 @@ main {
   justify-content: center;
 }
 
+/* Score directly under keyboard */
 .score-section {
   grid-column: 2;
   grid-row: 3;
   text-align: center;
 }
 
-/* --- PUZZLE TILES: WHITE SQUARES --- */
+/* --- PUZZLE TILES (WHITE) --- */
 .tile {
   background: white !important;
   color: black !important;
