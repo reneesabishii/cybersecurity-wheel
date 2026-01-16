@@ -41,7 +41,7 @@ header {
 /* Keyboard directly under puzzle */
 .letters-section {
   grid-column: 2;
-  grid-row: 2;
+  grid-row: 1;
   display: flex;
   justify-content: center;
 }
