@@ -27,7 +27,7 @@ header {
   grid-row: 1 / span 3;  
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: right;
 }
 
 /* --- RIGHT COLUMN STACK --- */
