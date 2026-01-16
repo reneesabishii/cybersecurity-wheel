@@ -53,6 +53,10 @@ main{
   justify-content: center;      /* centers team cards */
 }
 
+.key.used {
+  visibility: hidden;      /* or opacity: 0; pointer-events: none; */
+}
+
 /* 7) Make mobile even cleaner */
 @media (max-width: 980px){
   main{
