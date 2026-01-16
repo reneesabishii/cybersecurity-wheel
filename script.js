@@ -41,7 +41,7 @@ function setMessage(msg){
 // Load default vocab (works well on iPhone/GitHub Pages)
 async function loadDefaultVocab(){
   const fallback = [{
-    category:'Cybersecurity (Fallback)',
+    category:'Cybersecurity',
     words:[
       {term:'CAESAR CIPHER', hint:'A substitution cipher that shifts letters by a fixed number'},
       {term:'CRYPTOGRAPHY', hint:'Secure communication techniques'},
