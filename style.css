@@ -28,6 +28,7 @@ header {
   display: flex;
   flex-direction: column;
   align-items: right;
+  transform: translateX(-25px);
 }
 
 /* --- RIGHT COLUMN STACK --- */
@@ -85,16 +86,20 @@ header {
 .keyboard {
   display: grid;
   grid-template-columns: repeat(13, 1fr);
-  gap: .5rem;              /* slightly larger spacing between keys */
+  gap: .6rem;              /* more space between keys */
   justify-content: center;
 }
 
 .key {
-  padding: 14px 10px;      /* bigger key size */
-  font-size: 1.2rem;       /* larger letters */
-  border-radius: 6px;      /* smoother edges */
+  padding: 18px 14px;      /* larger key size */
+  font-size: 1.35rem;      /* bigger letters */
+  border-radius: 8px;      /* smoother, chunkier buttons */
   font-weight: bold;
+  background: #e2e8f0;     /* optional: softer gray background */
+  color: #1a1a1a;
+  border: 2px solid #cbd5e1;
 }
+
 
 
 .key.used {
