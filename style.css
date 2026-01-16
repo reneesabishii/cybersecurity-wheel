@@ -28,7 +28,7 @@ header {
   display: flex;
   flex-direction: column;
   align-items: right;
-  transform: translateX(-100px);
+  /**transform: translateX(-100px);
 }
 
 /* --- RIGHT COLUMN STACK --- */
