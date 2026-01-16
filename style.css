@@ -23,11 +23,7 @@ header {
   grid-column: 2;
 }
 /* 2) Center the wheel column content */
-.wheel-section {
-  display: flex;
-  flex-direction: column;
-  align-items: left; /* center wheel inside its column */
-}
+
 
 .landed-result{
   margin-top: .5rem;
