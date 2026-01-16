@@ -1,9 +1,12 @@
 body{font-family:sans-serif;color:white;background:#0f172a;padding:1rem;} .tile{background:#1f2937;padding:10px;margin:3px;border-radius:4px;display:inline-block;}
 /* 1) Center the whole page content within a max width */
 main{
-  width: min(100%, 1000px);     /* center block width */
-  margin-inline: auto;          /* centers the grid container */
-  justify-items: center;        /* centers items within each grid cell */
+  display: grid;
+  grid-template-columns: 420px 1fr; /* wheel column | everything else */
+  gap: 2rem;
+  width: min(100%, 1200px);
+  margin-inline: auto;
+  align-items: start;
 }
 
 header {
@@ -11,10 +14,10 @@ header {
 }
 
 /* 2) Center the wheel column content */
-.wheel-section{
+.wheel-section {
   display: flex;
   flex-direction: column;
-  align-items: left;          /* centers the canvas + buttons */
+  align-items: center; /* center wheel inside its column */
 }
 
 .landed-result{
@@ -83,9 +86,8 @@ header {
   border: none;
 }
 /* 7) Make mobile even cleaner */
-@media (max-width: 980px){
-  main{
-    grid-template-columns: 1fr; /* single column */
-    justify-items: center;      /* center each section */
+@media (max-width: 900px) {
+  main {
+    grid-template-columns: 1fr;
   }
 }
