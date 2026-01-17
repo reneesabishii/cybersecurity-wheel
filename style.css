@@ -1,13 +1,9 @@
-/* --- GLOBAL --- */
 body {
   font-family: sans-serif;
   color: white;
   background: #0f172a;
   padding: 1rem;
 }
-
-/* --- MAIN LAYOUT: WHEEL LEFT, EVERYTHING ELSE RIGHT --- */
-
 main {
   display: grid;
   grid-template-columns: 420px 1fr;
@@ -17,13 +13,9 @@ main {
   transform: translateX(100px);
   margin-top: 20px;
 }
-
-
 header {
   text-align: center;
 }
-
-/* --- LEFT COLUMN: WHEEL --- */
 .wheel-section {
   grid-column: 1;
   grid-row: 1 / span 3;
@@ -47,16 +39,12 @@ header {
   justify-content: center;
   align-self: start;   /* ← prevents stretching */
 }
-
-/* Score directly under keyboard */
 .score-section {
   grid-column: 2;
   grid-row: 3;
   text-align: center;
   align-self: start;   /* ← prevents stretching */
 }
-
-/* --- PUZZLE TILES (WHITE) --- */
 .tile {
   background: white !important;
   color: black !important;
@@ -66,20 +54,16 @@ header {
   display: inline-block;
   width: 40px;
   height: 50px;
-
   font-weight: bold;
   font-size: 1.1rem;
   text-align: center;
-
   line-height: 50px;   /* PERFECT vertical centering */
 }
-
 .tile.revealed {
   background: white !important;
   color: black !important;
   line-height: 50px;   /* keep consistent */
 }
-
 .tile.space {
   background: transparent !important;
   border: 2px solid transparent;
@@ -87,11 +71,6 @@ header {
   height: 50px;
   line-height: 50px;
 }
-
-
-
-
-
 .keyboard {
   display: grid;
   font-size: 1.1rem;
