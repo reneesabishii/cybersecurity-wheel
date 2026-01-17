@@ -74,10 +74,6 @@ header {
   height: 50px;               /* FIXED SIZE */
 }
 
-.tile.revealed {
-  background: white !important;
-  color: black !important;
-}
 
 .tile.space {
   background: transparent !important;
