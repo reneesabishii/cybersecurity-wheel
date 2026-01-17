@@ -9,18 +9,19 @@
 </head>
 <body>
   <header>
-    <h1>Vocabulary Wheel of Fortune</h1>
-    <p>Guess the cybersecurity vocabulary word. Spin the wheel to choose a consonant or vowel and earn points!</p>
+    <h2>Vocabulary Wheel of Fortune</h2>
+    <div id="category">Category: <span id="categoryText">(loading...)</span></div>
+
   </header>
 
   <main>
     <section class="puzzle-section">
-      <div id="category">Category: <span id="categoryText">(loading...)</span></div>
       <div id="puzzle" aria-label="hidden word"></div>
-      <div id="hint" class="hint" hidden></div>
+      <div id="hint" class="hint" hidden></div><br>
       <div class="controls">
         <button id="newWordBtn">New Word</button>
         <button id="toggleHintBtn">Hint</button>
+        <br>
       </div>
     </section>
     <section class="letters-section">
