@@ -105,8 +105,10 @@ function drawPuzzle(){
     const d = document.createElement('div');
     if(ch === ' '){
       d.className = 'tile space';
+      d.innerHTML = '&nbsp;';
     } else if(ch === '_'){
       d.className = 'tile';
+      d.innerHTML = '&nbsp;';
     } else {
       d.className = 'tile revealed';
       d.textContent = ch;
