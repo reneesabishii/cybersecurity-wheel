@@ -61,18 +61,33 @@ header {
   background: white !important;
   color: black !important;
   border: 2px solid #ccc;
-  padding: 0;                 /* no padding needed with fixed size */
   margin: 3px;
   border-radius: 4px;
-  display: inline-flex;       /* centers content */
-  justify-content: center;
-  align-items: center;
+  display: inline-block;
+  width: 40px;
+  height: 50px;
+
   font-weight: bold;
   font-size: 1.1rem;
+  text-align: center;
 
-  width: 40px;                /* FIXED SIZE */
-  height: 50px;               /* FIXED SIZE */
+  line-height: 50px;   /* PERFECT vertical centering */
 }
+
+.tile.revealed {
+  background: white !important;
+  color: black !important;
+  line-height: 50px;   /* keep consistent */
+}
+
+.tile.space {
+  background: transparent !important;
+  border: 2px solid transparent;
+  width: 40px;
+  height: 50px;
+  line-height: 50px;
+}
+
 
 
 
