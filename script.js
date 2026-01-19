@@ -80,6 +80,15 @@ async function loadDefaultVocab(){
 
 function sanitizeWord(w){ return (w || '').toUpperCase(); }
 
+function weightedIndex(weights) {
+  const total = weights.reduce((a,b)=>a+b, 0);
+  let r = Math.random() * total;
+  for (let i = 0; i < weights.length; i++) {
+    if ((r -= weights[i]) <= 0) return i;
+  }
+  return weights.length - 1;
+}
+
 function pickRandom(){
   if (!dataSets.length){
     setMessage('No vocabulary loaded.');
@@ -273,6 +282,13 @@ function spin(vowels){
       requestAnimationFrame(animate);
     } else {
       spinning=false;
+      
+      const weights = WHEEL_SLICES.map(s => {
+        if (s.bankrupt || s.loseTurn) return 0.2; // very rare
+        if (s.value >= 500) return 1.0;           // rarer than small values
+        return 2.0;                                // common values
+      });
+
       const sliceAngle=2*Math.PI/WHEEL_SLICES.length;
       const idx=Math.floor(((2*Math.PI-(wheelAngle%(2*Math.PI)))/sliceAngle))%WHEEL_SLICES.length;
 
